@@ -3,12 +3,14 @@ import Item from "./item";
 
 interface ListItemProps {
   items: (string | JSX.Element)[][];
+  selectedIndex: number | null;
+  onSelect: (value: string, index: number) => void;
 }
-const ListItems: React.FC<ListItemProps> = ({ items }) => {
+const ListItems: React.FC<ListItemProps> = ({ items, selectedIndex, onSelect }) => {
   return (
     <>
       {items?.length > 0 &&
-        items.map((item) => <Item data={item} key={getUniqueId()} />)}
+        items.map((item, i) => <Item data={item} selectedIndex={selectedIndex} index={i} onSelect={onSelect} key={getUniqueId()} />)}
     </>
   );
 };

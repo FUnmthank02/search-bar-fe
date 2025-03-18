@@ -8,25 +8,49 @@ interface InputProps {
   value?: string;
   onClear?: () => void;
   onSearch?: (query: string, isSearching: boolean) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onKeyDown?: (event: any) => void;
 }
 
 const Input: React.FC<InputProps> = ({
   placeholder = "Search...",
   onSearch,
+  value,
+  onKeyDown,
 }) => {
   const [inputValue, setInputValue] = useState("");
   const debouncedSearchValue = useDebounce(inputValue, 500);
   const inputRef = useRef<HTMLInputElement>(null);
+  const isSelectingRef = useRef(false); // Track if selection is happening
 
   useEffect(() => {
     if (debouncedSearchValue.trim().length > 2) {
       onSearch?.(debouncedSearchValue, false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchValue]);
+
+  useEffect(() => {
+    setInputValue(value || "");
+  }, [value]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    console.log("handleKeyDown");
+
+    if (onKeyDown) onKeyDown(e); // Pass key events to `SearchBar`
+
+    if (e.key === "Enter") {
+      if (isSelectingRef.current) {
+        e.preventDefault();
+        isSelectingRef.current = false; // Reset flag
+        return; // Prevent search from triggering
+      }
+      onSearch?.(inputValue, true);
+    }
   };
 
   const handleClear = () => {
@@ -34,6 +58,7 @@ const Input: React.FC<InputProps> = ({
     onSearch?.("", false);
     inputRef.current?.focus();
   };
+
   return (
     <div className="flex items-center border border-gray-400 focus-within:border-blue-400 rounded-t-lg rounded-br-lg overflow-hidden w-full">
       {/* Input Field */}
@@ -44,7 +69,7 @@ const Input: React.FC<InputProps> = ({
         placeholder={placeholder}
         value={inputValue}
         onChange={handleChange}
-        onKeyDown={(e) => e.key === "Enter" && onSearch?.(inputValue, true)}
+        onKeyDown={handleKeyDown}
       />
 
       {/* Clear Button (❌) */}
