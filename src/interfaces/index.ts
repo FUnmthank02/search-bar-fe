@@ -38,3 +38,8 @@ export interface Pagination {
   pageSize: number;
   total: number;
 }
+
+export interface Suggestion {
+  stemmedQueryTerm: string;
+  suggestions: string[];
+}
