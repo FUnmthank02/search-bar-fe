@@ -7,6 +7,7 @@ export const FetchData = async () => {
     return response || {};
   } catch (error) {
     console.error("Error fetching data:", error);
+    return {};
   }
 };
 
@@ -42,6 +43,7 @@ export const FetchSuggestionData = async () => {
     return response || {};
   } catch (error) {
     console.error("Error fetching data:", error);
+    return {};
   }
 };
 

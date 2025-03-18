@@ -61,7 +61,7 @@ const WrapSearch = () => {
         pageSize: 10,
         searchValue: query,
       });
-      setCurrentData(result || {});
+      setCurrentData(result);
     }
   };
 

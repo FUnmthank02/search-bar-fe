@@ -39,10 +39,7 @@ const Input: React.FC<InputProps> = ({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    console.log("handleKeyDown");
-
     if (onKeyDown) onKeyDown(e); // Pass key events to `SearchBar`
-
     if (e.key === "Enter") {
       if (isSelectingRef.current) {
         e.preventDefault();
@@ -72,7 +69,7 @@ const Input: React.FC<InputProps> = ({
         onKeyDown={handleKeyDown}
       />
 
-      {/* Clear Button (❌) */}
+      {/* Clear Button (x) */}
       {inputValue.length >= 1 && (
         <Button
           onClick={handleClear}
