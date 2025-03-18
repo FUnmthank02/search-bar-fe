@@ -1,14 +1,16 @@
-import { ResultItem } from "../../interfaces";
+import { getUniqueId } from "../../utils/helpers";
 import Item from "./item";
 
 interface ListItemProps {
-  items: ResultItem[];
+  items: (string | JSX.Element)[][];
+  selectedIndex: number | null;
+  onSelect: (value: string, index: number) => void;
 }
-const ListItems: React.FC<ListItemProps> = ({ items }) => {
+const ListItems: React.FC<ListItemProps> = ({ items, selectedIndex, onSelect }) => {
   return (
     <>
       {items?.length > 0 &&
-        items.map((item) => <Item data={item} key={item?.DocumentId} />)}
+        items.map((item, i) => <Item data={item} selectedIndex={selectedIndex} index={i} onSelect={onSelect} key={getUniqueId()} />)}
     </>
   );
 };
