@@ -1,5 +1,5 @@
 import { API } from "../api/api";
-import { QueryParams, ResultItem } from "../interfaces";
+import { QueryParams, ResultItem, Suggestion } from "../interfaces";
 
 export const FetchData = async () => {
   try {
@@ -35,3 +35,20 @@ export const SearchData = (data: ResultItem[], query: QueryParams) => {
     ResultItems: paginatedResults,
   };
 };
+
+export const FetchSuggestionData = async () => {
+  try {
+    const response = await API.suggestion();
+    return response || {};
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
+export const GetSuggestion = (suggestion: Suggestion, searchValue: string) => {
+  const lowerCaseSearch = searchValue.toLowerCase();
+  if (suggestion?.stemmedQueryTerm.toLowerCase().includes(lowerCaseSearch)) {
+    return suggestion.suggestions;
+  }
+  return []
+}

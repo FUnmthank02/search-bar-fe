@@ -1,14 +1,14 @@
-import { ResultItem } from "../../interfaces";
+import { getUniqueId } from "../../utils/helpers";
 import Item from "./item";
 
 interface ListItemProps {
-  items: ResultItem[];
+  items: (string | JSX.Element)[][];
 }
 const ListItems: React.FC<ListItemProps> = ({ items }) => {
   return (
     <>
       {items?.length > 0 &&
-        items.map((item) => <Item data={item} key={item?.DocumentId} />)}
+        items.map((item) => <Item data={item} key={getUniqueId()} />)}
     </>
   );
 };

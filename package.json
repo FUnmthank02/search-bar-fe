@@ -26,7 +26,6 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
-    "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.482.0",
     "react-hot-toast": "^2.5.2",
     "tailwindcss": "^4.0.14",
