@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { SearchResponse } from "../../interfaces";
 import ItemSearchResult from "./itemSearchResult";
+import { getUniqueId } from "../../utils/helpers";
 
 interface ListItemProps {
   result: SearchResponse;
@@ -32,7 +33,7 @@ const ListResults: React.FC<ListItemProps> = ({
       ))}
       {result?.ResultItems?.length > 0 &&
         result?.ResultItems?.map((item) => (
-          <ItemSearchResult data={item} key={item?.DocumentId} />
+          <ItemSearchResult data={item} key={item?.DocumentId || getUniqueId()} />
         ))}
     </>
   );

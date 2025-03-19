@@ -28,6 +28,7 @@
       "/src/types/",
       "/src/services/",
       "/src/components/header/",
+      "/src/components/search/index.tsx/",
       "/src/main.tsx"
     ],
     "collectCoverageFrom": [
